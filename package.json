@@ -16,7 +16,7 @@
     "@types/jquery": "3.5.6",
     "aurelia-webpack-plugin": "git+https://git@github.com/aurelia/webpack-plugin#e9efbf8ed1f941241210bd625cb7521a6d04b71f",
     "copy-webpack-plugin": "9.0.1",
-    "css-loader": "5.2.7",
+    "css-loader": "6.2.0",
     "css-minimizer-webpack-plugin": "3.0.2",
     "html-loader": "2.1.2",
     "html-webpack-plugin": "5.3.2",
