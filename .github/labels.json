@@ -6,6 +6,8 @@
     { "name": "kind/cleanup", "color": "#ededed", "description": "Categorizes issue or PR as related to cleaning up code, process, or technical debt." },
     { "name": "kind/dependencies", "color": "#ededed", "description": "Pull requests that update a dependency file" },
     { "name": "kind/security", "color": "#10cc8a", "description": "Categorizes issue or PR as related to security." },
+    { "name": "kind/question", "color": "#775FCB", "description": "Categorizes issues related to questions." },
+
     { "name": "size/XS", "color": "#009900", "description": "Denotes a PR that changes 0-9 lines, ignoring generated files." },
     { "name": "size/S", "color": "#77bb00", "description": "Denotes a PR that changes 10-29 lines, ignoring generated files." },
     { "name": "size/M", "color": "#eebb00", "description": "Denotes a PR that changes 30-99 lines, ignoring generated files." },
