@@ -13,7 +13,7 @@
     "build-dev": "npm run prepare-dev && node node_modules/webpack-cli/bin/cli.js --config build/webpack/webpack.config.js --watch"
   },
   "devDependencies": {
-    "@types/jquery": "3.5.6",
+    "@types/jquery": "3.5.8",
     "aurelia-webpack-plugin": "git+https://git@github.com/aurelia/webpack-plugin#e9efbf8ed1f941241210bd625cb7521a6d04b71f",
     "copy-webpack-plugin": "9.0.1",
     "css-loader": "6.3.0",
