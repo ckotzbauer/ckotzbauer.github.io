@@ -6,7 +6,7 @@
   "author": "Christian Kotzbauer <christian.kotzbauer@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "clean": "node node_modules/rimraf/bin.js build/out",
+    "clean": "npx rimraf build/out",
     "prepare-prod": "npm run clean && node build/scripts/paramWriter.js --profile=prod",
     "prepare-dev": "npm run clean && node build/scripts/paramWriter.js --profile=local",
     "build-prod": "npm run prepare-prod && node node_modules/webpack-cli/bin/cli.js --config build/webpack/webpack.config.js",
@@ -21,7 +21,7 @@
     "html-loader": "4.2.0",
     "html-webpack-plugin": "5.5.0",
     "mini-css-extract-plugin": "2.7.2",
-    "rimraf": "3.0.2",
+    "rimraf": "4.1.2",
     "sass": "1.58.0",
     "sass-loader": "13.2.0",
     "style-loader": "3.3.1",
