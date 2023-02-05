@@ -6,7 +6,7 @@
   "author": "Christian Kotzbauer <christian.kotzbauer@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "clean": "node node_modules/rimraf/bin.js build/out",
+    "clean": "npx rimraf build/out",
     "prepare-prod": "npm run clean && node build/scripts/paramWriter.js --profile=prod",
     "prepare-dev": "npm run clean && node build/scripts/paramWriter.js --profile=local",
     "build-prod": "npm run prepare-prod && node node_modules/webpack-cli/bin/cli.js --config build/webpack/webpack.config.js",
