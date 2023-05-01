@@ -30,7 +30,7 @@
     "typescript": "5.0.4",
     "webpack": "5.77.0",
     "webpack-cli": "5.0.2",
-    "yargs": "17.7.1"
+    "yargs": "17.7.2"
   },
   "dependencies": {
     "aurelia-bootstrapper": "~2.4.0",
