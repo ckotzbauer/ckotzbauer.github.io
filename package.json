@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@types/jquery": "3.5.16",
-    "aurelia-webpack-plugin": "5.0.5",
+    "aurelia-webpack-plugin": "5.0.6",
     "copy-webpack-plugin": "11.0.0",
     "css-loader": "6.8.1",
     "css-minimizer-webpack-plugin": "5.0.1",
