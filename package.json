@@ -35,6 +35,6 @@
   "dependencies": {
     "aurelia-bootstrapper": "~2.4.0",
     "aurelia-loader-webpack": "~2.2.2",
-    "jquery": "~3.7.0"
+    "jquery": "~4.0.0"
   }
 }
