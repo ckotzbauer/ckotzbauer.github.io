@@ -50,7 +50,7 @@ jobs:
         run: pnpm build
 
       - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@6c2d9db40b700cb904304d2c6a81be2a52396c06 # v4.7.3
+        uses: JamesIves/github-pages-deploy-action@d92aa235d04922e8f08b40ce78cc5442fcfbfa2f # v4.8.0
         with:
           branch: master
           folder: dist
