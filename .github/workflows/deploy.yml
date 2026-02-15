@@ -1,41 +1,58 @@
-name: deploy
+name: Deploy
 
 on:
   push:
-    branches:
-      - 'source'
+    branches: [source]
+  schedule:
+    - cron: "0 6 * * *" # Daily at 06:00 UTC (07:00 CET)
   workflow_dispatch: {}
 
+permissions:
+  contents: write
+
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
+    name: Build and Deploy
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
-          persist-credentials: false
+          fetch-depth: 0 # Fetch all history for git operations
 
-      - name: Reconfigure git to use HTTP authentication
-        run: >
-          git config --global url."https://github.com/".insteadOf
-          ssh://git@github.com/
+      - name: Setup pnpm
+        uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
 
-      - name: Setup Node
-        uses: ckotzbauer/actions-toolkit/setup-nodejs@0.51.0
-
-      - name: Build
-        run: |
-          npm i
-          npm run build-prod
-
-      - name: Install SSH Client
-        uses: webfactory/ssh-agent@v0.9.1
+      - name: Setup Node.js
+        uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e # v4.3.0
         with:
-          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+          node-version: 22
+          cache: pnpm
 
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4.8.0
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # - name: Publish LinkedIn posts
+      #   id: linkedin
+      #   env:
+      #     LINKEDIN_WEBHOOK_URL: ${{ secrets.LINKEDIN_WEBHOOK_URL }}
+      #   run: node scripts/publish-linkedin.mjs
+
+      # - name: Commit LinkedIn status updates
+      #   run: |
+      #     git config user.name "github-actions[bot]"
+      #     git config user.email "github-actions[bot]@users.noreply.github.com"
+      #     git add linkedin/
+      #     git diff --cached --quiet || git commit -m "chore: mark LinkedIn posts as published"
+      #     git push origin source || true
+
+      - name: Build Astro site
+        run: pnpm build
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@6c2d9db40b700cb904304d2c6a81be2a52396c06 # v4.7.3
         with:
-          ssh-key: true
-          branch: master # The branch the action should deploy to.
-          folder: build/out # The folder the action should deploy.
+          branch: master
+          folder: dist
+          git-config-name: github-actions[bot]
+          git-config-email: github-actions[bot]@users.noreply.github.com
