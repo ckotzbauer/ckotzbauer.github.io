@@ -1,2 +1,4 @@
 User-agent: *
-Allow: /
+Disallow: /_astro/
+
+Sitemap: https://www.ckotzbauer.de/sitemap-index.xml

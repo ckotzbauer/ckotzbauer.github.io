@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Christian Hopf</title><description>Developer Blog</description><link>https://www.ckotzbauer.de/</link><language>en</language><item><title>Announcing the simple-tree-component</title><link>https://www.ckotzbauer.de/posts/announcing-simple-tree-component/</link><guid isPermaLink="true">https://www.ckotzbauer.de/posts/announcing-simple-tree-component/</guid><description>Kubernetes authorization for teams.</description><pubDate>Sat, 19 Jun 2021 10:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Announcing the simple-tree-component&lt;/h1&gt;
+&lt;h2&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Over a year ago, a colleague of mine and me were searching for a javascript-component capable for tree-rendering. There were a few must-have aspects we were looking for:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Zero runtime-dependencies (especially no JQuery)&lt;/li&gt;
+&lt;li&gt;Actively maintained&lt;/li&gt;
+&lt;li&gt;Framework-agnostic&lt;/li&gt;
+&lt;li&gt;Good integration with modern bundlers&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These requirements did already reduce the number of possible libraries to a considerable degree. In addition, we had to consider the requirements of our product as well:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Text-search through tree-nodes&lt;/li&gt;
+&lt;li&gt;Mode where the tree is rendered in a container&lt;/li&gt;
+&lt;li&gt;Dropdown-mode for single-selection&lt;/li&gt;
+&lt;li&gt;Dropdown-mode for multi-selection&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Neither did any component meet our requirements, nor did using two libraries for the different use-cases turn out to be sufficient. So we started considering the effort of developing and maintaining our own component with some extras, as TypeScript support. The &quot; &lt;a href=&quot;https://github.com/ckotzbauer/simple-tree-component&quot;&gt;Simple-Tree-Component&lt;/a&gt;&quot; was born. The first lockdown-phase of the Covid-pandemic in summer 2020 gave us time to implement the basics.&lt;/p&gt;
+&lt;p&gt;Let&apos;s have a look at the different features and concepts.&lt;/p&gt;
+&lt;h2&gt;Three modes&lt;/h2&gt;
+&lt;p&gt;As mentioned above, we had to implement different modes for multiple use-cases and ui-scenarios. The simplest mode simply renders the tree in a container:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://res.cloudinary.com/practicaldev/image/fetch/s--9KLocI_v--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/kr1459m93lcqe8s7c5ys.png&quot;&gt;&lt;img src=&quot;https://res.cloudinary.com/practicaldev/image/fetch/s--9KLocI_v--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/kr1459m93lcqe8s7c5ys.png&quot; alt=&quot;View-Only&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;It&apos;s possible to enable multi-selection with Checkboxes if needed. Furthermore, it can be configured whether child-nodes are automatically selected or deselected when a parent-node changes its selection-state.&lt;/p&gt;
+&lt;p&gt;The second variant we had to get covered, was a single-select dropdown:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://res.cloudinary.com/practicaldev/image/fetch/s--2r0NgB8s--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/sdvoej46n3j87ptrg75a.png&quot;&gt;&lt;img src=&quot;https://res.cloudinary.com/practicaldev/image/fetch/s--2r0NgB8s--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/sdvoej46n3j87ptrg75a.png&quot; alt=&quot;Single-Select&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;When the dropdown-flyout is closed, only the box itself is displayed in the same way as of native &lt;code&gt;&amp;lt;select&amp;gt;&lt;/code&gt; HTML-elements. A function can be defined which is called on each node-selection to customize the text displayed in closed-state. With the Emphasize-feature it is possible to add a custom css-class to the component-box. This, for example, makes it possible to add a icon as &quot;eye-catcher&quot; for the current selection.&lt;/p&gt;
+&lt;p&gt;Last but not least, the component can handle multi-selections with a dropdown, too. All selected nodes are rendered as pillboxes and can be deselected individually or all at once.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://res.cloudinary.com/practicaldev/image/fetch/s--jswXg_kG--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ahg0dd8i4yxhao47ody3.png&quot;&gt;&lt;img src=&quot;https://res.cloudinary.com/practicaldev/image/fetch/s--jswXg_kG--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ahg0dd8i4yxhao47ody3.png&quot; alt=&quot;Multi-Select&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Most of the features mentioned for the &quot;single-selection&quot; mode can be used for &quot;multi-selection&quot; as well.&lt;/p&gt;
+&lt;h2&gt;Search and Highlighting&lt;/h2&gt;
+&lt;p&gt;In all mode-variants it is possible to enable the text-search-feature to filter tree-nodes. The chain from a matching child-node to its root-node is always displayed. By default non-matching childs are not displayed when a parent-node matches the search-text but this behaviour can be changed individually. In addition to searching in general, the search-results can be highlighted as well.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://res.cloudinary.com/practicaldev/image/fetch/s--AYyh60gT--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rziaffu4k5tprwperdbb.png&quot;&gt;&lt;img src=&quot;https://res.cloudinary.com/practicaldev/image/fetch/s--AYyh60gT--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rziaffu4k5tprwperdbb.png&quot; alt=&quot;Highlighting&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Styling&lt;/h2&gt;
+&lt;p&gt;All styles are implemented with SASS to ensure good adaptability. The sass-files are also part of the NPM package.&lt;/p&gt;
+&lt;h2&gt;Data-driven&lt;/h2&gt;
+&lt;p&gt;The main concept for data-handling was using a completely data-driven approach. The reason for it was the necessity of removing and modifying existing tree-nodes and adding new ones when the tree is already rendered. Even though it would be possible to use a DOM-driven approach here, extracting the data-states from the UI and still making it work with any framework at the same time would turn out more difficult.&lt;/p&gt;
+&lt;h2&gt;Type-safety&lt;/h2&gt;
+&lt;p&gt;The whole code is developed in &lt;a href=&quot;https://www.typescriptlang.org/&quot;&gt;TypeScript&lt;/a&gt; with a very strong typing, especially for the public API. This makes development for library-contributors and for developers easier and more efficient.&lt;/p&gt;
+&lt;h2&gt;Browser compatibility&lt;/h2&gt;
+&lt;p&gt;The code is compiled to &lt;code&gt;ES2015&lt;/code&gt; at the moment. This should ensure compability to most modern browsers. However - also due to the lack of cross-browser tests - there is no explicit list of supported browsers or versions. The only thing we can be sure about is, that there will never be support for any Internet Explorer version. :)&lt;/p&gt;
+&lt;h2&gt;Documentation&lt;/h2&gt;
+&lt;p&gt;All features, other aspects and a &quot;Getting started&quot; are also &lt;a href=&quot;https://www.ckotzbauer.de/simple-tree-component/#/&quot;&gt;documented&lt;/a&gt;. At the &lt;a href=&quot;https://github.com/ckotzbauer/simple-tree-component&quot;&gt;Github-Repo&lt;/a&gt; you can find a demo-integration with the SPA-Framework &quot; &lt;a href=&quot;https://aurelia.io/&quot;&gt;Aurelia&lt;/a&gt;&quot;.&lt;/p&gt;
+&lt;h2&gt;Contributions&lt;/h2&gt;
+&lt;p&gt;As every open-source project, this component is also open for issues, discussions and feature-requests. Do not hesistate to reach out to us. We&apos;re looking forward to your feedback.&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;There are some new features in development as well as improvements for increasing the stability even more. At the end of this post I want to say &quot;Thank you!&quot; to my colleague &lt;a href=&quot;https://github.com/coding-komek&quot;&gt;Thomas&lt;/a&gt; who helped me a lot in creating this library from the first day on. Many thanks!&lt;/p&gt;
+</content:encoded></item><item><title>Managing K8s Authorization like charm</title><link>https://www.ckotzbauer.de/posts/managing-k8s-auth-with-charm/</link><guid isPermaLink="true">https://www.ckotzbauer.de/posts/managing-k8s-auth-with-charm/</guid><description>Kubernetes authorization for teams.</description><pubDate>Sat, 13 Jun 2020 10:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Managing K8s Authorization like charm&lt;/h1&gt;
+&lt;p&gt;Administrating complex authorization scenarios with fine-grained permissions is often difficult. In the Kubernetes ecosystem, the &quot;Role-based-Access-Control&quot; (RBAC) pattern is often used to do authorization for different users and groups in your cluster. RBAC is very powerful, but gets complex if you want to grant permissions on a namespace-basis.&lt;/p&gt;
+&lt;p&gt;At work I faced this challange and wanted to simplify the definiton, creation and removal of those rules. The result of this simplification is the &quot; &lt;a href=&quot;https://github.com/ckotzbauer/access-manager&quot;&gt;access-manager&lt;/a&gt;&quot;, a Kubernetes-Operator I built to manage &lt;code&gt;RoleBinding&lt;/code&gt; and &lt;code&gt;ClusterRoleBinding&lt;/code&gt;s. These two objects are used to assign permissions defined in &lt;code&gt;Role&lt;/code&gt;s and &lt;code&gt;ClusterRole&lt;/code&gt;s to accounts (Users, Groups, ServiceAccounts). And this assignment is often the complex part.&lt;/p&gt;
+&lt;h2&gt;Example&lt;/h2&gt;
+&lt;p&gt;Let&apos;s start with an example, to make it more descriptive:&lt;/p&gt;
+&lt;p&gt;Given you have the following namespaces in Kubernetes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ci-service&lt;/li&gt;
+&lt;li&gt;product-a&lt;/li&gt;
+&lt;li&gt;product-b&lt;/li&gt;
+&lt;li&gt;monitoring&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;And you have the following individuals or groups in your cluster:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Jane&lt;/li&gt;
+&lt;li&gt;John&lt;/li&gt;
+&lt;li&gt;Support (a group of user)&lt;/li&gt;
+&lt;li&gt;The ci-service solution&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Jane is an administrator and needs access to all namespaces. John needs write-access to &lt;code&gt;product-a&lt;/code&gt; and &lt;code&gt;product-b&lt;/code&gt;. The support-group has to view (read-only) the two products and the &lt;code&gt;monitoring&lt;/code&gt; namespace. As last requirement, the &lt;code&gt;ServiceAccount&lt;/code&gt; of &lt;code&gt;ci-service&lt;/code&gt; should be able to deploy new versions of the two products. For simplicity the &lt;code&gt;Role&lt;/code&gt;s and &lt;code&gt;ClusterRole&lt;/code&gt;s are already defined and the John and the CI should use the same role.&lt;/p&gt;
+&lt;p&gt;This scenario would end up in&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;one &lt;code&gt;ClusterRoleBinding&lt;/code&gt;, where &lt;code&gt;Jane&lt;/code&gt; is assigned to the &lt;code&gt;cluster-admin&lt;/code&gt; role,&lt;/li&gt;
+&lt;li&gt;one &lt;code&gt;RoleBinding&lt;/code&gt; in the two product namespaces, which assignes the User &lt;code&gt;John&lt;/code&gt; and the &lt;code&gt;ci-service&lt;/code&gt; ServiceAccount to manage the products,&lt;/li&gt;
+&lt;li&gt;one &lt;code&gt;RoleBinding&lt;/code&gt; in the two product namespaces and the &lt;code&gt;monitoring&lt;/code&gt; namespace for the support-group.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;So six &lt;code&gt;(Cluster-)RoleBinding&lt;/code&gt;s are needed to achieve this. And the setup has to grow, if there would be a &lt;code&gt;product-c&lt;/code&gt; namespace some day.&lt;/p&gt;
+&lt;p&gt;Let&apos;s get the operator into play and define the above:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;apiVersion: access-manager.io/v1beta1
+kind: RbacDefinition
+metadata:
+  name: my-definition
+spec:
+  namespaced:
+    - namespaceSelector:
+        matchLabels:
+          management: &quot;true&quot;
+      bindings:
+        - roleName: product-write-permission
+          kind: ClusterRole
+          subjects:
+            - name: ci-service
+              kind: ServiceAccount
+            - name: john
+              kind: User
+    - namespaceSelector:
+        matchLabels:
+          support: &quot;true&quot;
+      bindings:
+        - roleName: support-permission
+          kind: ClusterRole
+          subjects:
+            - name: support
+              kind: Group
+  cluster:
+    - name: jane-admin
+      clusterRoleName: cluster-admin
+      subjects:
+        - name: jane
+          kind: User
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I introduced two different labels on namespaces: All namespaces labeled with &lt;code&gt;management: true&lt;/code&gt; are eligible to be managed from John and through the &lt;code&gt;ci-service&lt;/code&gt;. All namespaced which should be viewed from the support-group are labeled with &lt;code&gt;support: true&lt;/code&gt;. If there would be a &lt;code&gt;namespace-c&lt;/code&gt; some day, all you have to do is, to add the needed labels. The operator will do the rest for you. Changes to namespaces or these &lt;code&gt;RbacDefinition&lt;/code&gt;s are automatically detected and the desired state is applied.&lt;/p&gt;
+&lt;p&gt;For more detailed informations for the definition and other features, please read the &lt;a href=&quot;https://github.com/ckotzbauer/access-manager/blob/master/docs/api.md&quot;&gt;api-docs&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Role-based authorization in Kubernetes becomes more complex as the cluster grows and more different accounts getting access. With the &quot;access-manager&quot; it is possible to just define the Roles needed and the the assignment-rules to accounts. The creation, modification and removal of the concrete Bindings is fully managed and nothing you have to care about.&lt;/p&gt;
+</content:encoded></item><item><title>Cache reset with Webpack</title><link>https://www.ckotzbauer.de/posts/cache-reset-with-webpack/</link><guid isPermaLink="true">https://www.ckotzbauer.de/posts/cache-reset-with-webpack/</guid><description>Cache busting with webpack.</description><pubDate>Sun, 22 Jan 2017 10:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Cache reset with Webpack&lt;/h1&gt;
+&lt;p&gt;There are several strategies to implement a caching mechanism. The common way with Webpack is, to change the file&lt;/p&gt;
+&lt;p&gt;name and add a content-based hash. The advantage of this is, that the file only needs to be reloaded if its content&lt;/p&gt;
+&lt;p&gt;changed. But the disadvantage is (e.g. for images) that all references in your source-code have to be modified in&lt;/p&gt;
+&lt;p&gt;order to match the different file names, but this seems to be solvable. But what happens, if you start generating some paths&lt;/p&gt;
+&lt;p&gt;through variables at runtime? So I considered to use a fairly old mechanism: Cache-Busting with a Query-Parameter.&lt;/p&gt;
+&lt;p&gt;To append this parameter to all the code references, I wrote a custom webpack-loader.&lt;/p&gt;
+&lt;h2&gt;Usage&lt;/h2&gt;
+&lt;p&gt;First, install the loader through npm:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;
+npm install cache-bust-loader
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Enter fullscreen modeExit fullscreen mode&lt;/p&gt;
+&lt;p&gt;Assuming, that the list of loaders in your &lt;code&gt;webpack.config.js&lt;/code&gt; looks similar to this:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;
+[\
+  { test: /\.css$/, loader: ExtractTextPlugin.extract({ loader: &apos;css-loader&apos; }) },\
+  { test: /\.html$/, loader: &apos;raw-loader&apos; },\
+  { test: /\.ts$/, loader: &apos;awesome-typescript-loader&apos; },\
+];
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Enter fullscreen modeExit fullscreen mode&lt;/p&gt;
+&lt;p&gt;Now, simply add the &lt;code&gt;cache-bust-loader&lt;/code&gt; to each file-type where you reference other files which you want to be cache-busted:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;
+const cacheBustLoader = `cache-bust-loader?name=bust&amp;amp;value=${bustValue}`;
+
+[\
+  { test: /\.css$/, loader: ExtractTextPlugin.extract({ loader: `${cacheBustLoader}!css-loader` }) },\
+  { test: /\.html$/, loader: `${cacheBustLoader}!raw-loader` },\
+  { test: /\.ts$/, loader: `${cacheBustLoader}!awesome-typescript-loader` },\
+];
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Enter fullscreen modeExit fullscreen mode&lt;/p&gt;
+&lt;p&gt;The loader has three parameters:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Parameter&lt;/th&gt;
+&lt;th&gt;Mandatory&lt;/th&gt;
+&lt;th&gt;Data type&lt;/th&gt;
+&lt;th&gt;Default value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;name&lt;/td&gt;
+&lt;td&gt;True&lt;/td&gt;
+&lt;td&gt;String&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;value&lt;/td&gt;
+&lt;td&gt;False&lt;/td&gt;
+&lt;td&gt;String&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;types&lt;/td&gt;
+&lt;td&gt;False&lt;/td&gt;
+&lt;td&gt;String&lt;/td&gt;
+&lt;td&gt;eot;woff;woff2;svg;ttf;otf;jpg;jpeg;png;ico;gif;json&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;The &lt;code&gt;name&lt;/code&gt; describes the name of the query parameter, the &lt;code&gt;value&lt;/code&gt; the string which should change every build.&lt;/p&gt;
+&lt;p&gt;If the &lt;code&gt;value&lt;/code&gt; is empty, no parameters are applied (e.g. in development mode). The &lt;code&gt;types&lt;/code&gt; are file-types&lt;/p&gt;
+&lt;p&gt;which you want to be cache-busted. Split them with a semicolon.&lt;/p&gt;
+&lt;p&gt;To generate a short unique string for each build you can fill &lt;code&gt;bustValue&lt;/code&gt; like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;bustValue = require(&quot;randomstring&quot;).generate(5);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Enter fullscreen modeExit fullscreen mode&lt;/p&gt;
+&lt;h2&gt;Result&lt;/h2&gt;
+&lt;p&gt;Open your browser-network-tab:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fraw.githubusercontent.com%2Fckotzbauer%2Fdev.to-posts%2Fmaster%2Fblog-posts%2F2020%2Fcache-reset-with-webpack%2Fassets%2Fnetwork-tab.jpg&quot;&gt;&lt;img src=&quot;https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fraw.githubusercontent.com%2Fckotzbauer%2Fdev.to-posts%2Fmaster%2Fblog-posts%2F2020%2Fcache-reset-with-webpack%2Fassets%2Fnetwork-tab.jpg&quot; alt=&quot;network-tab&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;This webpack-loader makes it easy to implement a basic cache-reset mechanism. All files matching the file-type have the query-parameter appended&lt;/p&gt;
+&lt;p&gt;and are reloaded if a new version of your frontend-project is deployed.&lt;/p&gt;
+</content:encoded></item><item><title>Migrating from Durandal to Aurelia</title><link>https://www.ckotzbauer.de/posts/migrating-from-durandal-to-aurelia/</link><guid isPermaLink="true">https://www.ckotzbauer.de/posts/migrating-from-durandal-to-aurelia/</guid><description>Migration guide to switch from Durandal to Aurelia framework.</description><pubDate>Wed, 15 Jun 2016 10:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Migrating from Durandal to Aurelia&lt;/h1&gt;
+&lt;p&gt;If you have an existing Durandal application you maybe want to migrate this app to Aurelia. Typically you used&lt;/p&gt;
+&lt;p&gt;Knockout for data-binding. Because Aurelia brings its own data-binding language the usage of Knockout&lt;/p&gt;
+&lt;p&gt;is not necessary anymore. But probably especially this part of the migration requires the greatest effort,&lt;/p&gt;
+&lt;p&gt;because you have to modify much of your code or partially rewrite it. So let&apos;s split this effort as much as possible:&lt;/p&gt;
+&lt;p&gt;Here&apos;s a way how you can use Aurelia side-by-side with the Knockout technology and then migrate each view and&lt;/p&gt;
+&lt;p&gt;view-model step-by-step. You can use your old Knockout views and their backed JavaScript code with its observables&lt;/p&gt;
+&lt;p&gt;and subscriptions, as if you were still using Durandal.&lt;/p&gt;
+&lt;h2&gt;First Steps&lt;/h2&gt;
+&lt;p&gt;First, install the Aurelia plugin&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;jspm install aurelia-knockout
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and register it during the startup of your app:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;export function configure(aurelia) =&amp;gt; {
+    aurelia.use
+        .standardConfiguration()
+        .developmentLogging()
+        .plugin(&quot;aurelia-knockout&quot;);
+
+    aurelia.start().then(() =&amp;gt; aurelia.setRoot());
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The next step will be, to add the &lt;code&gt;knockout&lt;/code&gt; custom attribute to each view which uses Knockout syntax:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;template&amp;gt;
+  &amp;lt;div knockout&amp;gt;
+    &amp;lt;button data-bind=&quot;click: changeVisibility&quot;&amp;gt;Change Visibility&amp;lt;/button&amp;gt;
+    &amp;lt;div data-bind=&quot;if: isVisible&quot;&amp;gt;
+      &amp;lt;span data-bind=&quot;text: firstName&quot;&amp;gt;&amp;lt;/span&amp;gt;
+      &amp;lt;br /&amp;gt;
+      &amp;lt;span data-bind=&quot;text: lastName&quot;&amp;gt;&amp;lt;/span&amp;gt;
+    &amp;lt;/div&amp;gt;
+  &amp;lt;/div&amp;gt;
+&amp;lt;/template&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; The element with the custom attribute has to wrap all code with Knockout syntax.&lt;/p&gt;
+&lt;p&gt;This attribute binds the HTML to the current BindingContext of Aurelia.&lt;/p&gt;
+&lt;p&gt;And that&apos;s it! With these small modifications you can use all Knockout bindings which are available.&lt;/p&gt;
+&lt;h2&gt;Using Compositions&lt;/h2&gt;
+&lt;p&gt;Durandal also provided a binding to compose views. Because this binding was implemented from Durandal and not&lt;/p&gt;
+&lt;p&gt;from Knockout you can not use this feature natively. But the &lt;code&gt;aurelia-knockout&lt;/code&gt; plugin supports the composition&lt;/p&gt;
+&lt;p&gt;with all possible variants listed in the &lt;a href=&quot;http://durandaljs.com/documentation/Using-Composition.html&quot;&gt;official Durandal docs&lt;/a&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;div data-bind=&quot;compose: &apos;path/to/view.html&apos;&quot;&amp;gt;&amp;lt;/div&amp;gt;
+&amp;lt;div data-bind=&quot;compose: &apos;path/to/module&apos;&quot;&amp;gt;&amp;lt;/div&amp;gt;
+&amp;lt;div data-bind=&quot;compose: { view: &apos;path/to/view.html&apos; }&quot;&amp;gt;&amp;lt;/div&amp;gt;
+&amp;lt;div data-bind=&quot;compose: { model: &apos;path/to/module&apos; }&quot;&amp;gt;&amp;lt;/div&amp;gt;
+&amp;lt;div data-bind=&quot;compose: { model: moduleInstance }&quot;&amp;gt;&amp;lt;/div&amp;gt;
+&amp;lt;div
+  data-bind=&quot;compose: { view: &apos;path/to/view.html&apos; model: &apos;path/to/module&apos; }&quot;
+&amp;gt;&amp;lt;/div&amp;gt;
+&amp;lt;div
+  data-bind=&quot;compose: { view: &apos;path/to/view.html&apos; model: moduleInstance }&quot;
+&amp;gt;&amp;lt;/div&amp;gt;
+&amp;lt;div data-bind=&quot;compose: moduleInstance&quot;&amp;gt;&amp;lt;/div&amp;gt;
+&amp;lt;div data-bind=&quot;compose: moduleConstructorFunction&quot;&amp;gt;&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;Set @bindable properties&lt;/h2&gt;
+&lt;p&gt;To enhance the flexibility of your migration process, this plugin also supports the ability to set &lt;code&gt;@bindable&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;variables in rewritten subordinated Aurelia views through the activationData. This offers the possibility to rewrite&lt;/p&gt;
+&lt;p&gt;single views in lower hierarchies without the need to do the same with their parent views.&lt;/p&gt;
+&lt;h4&gt;Parent Knockout based view&lt;/h4&gt;
+&lt;p&gt;Supposed that there is a parent view using Knockout technology which composes a child view like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;template&amp;gt;
+  &amp;lt;div
+    data-bind=&quot;compose: { model: &apos;path/to/submodule&apos;, activationData: data }&quot;
+  &amp;gt;&amp;lt;/div&amp;gt;
+&amp;lt;/template&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The appropriate data object would looks like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;{
+  price: ko.observable(5),
+  productName: &quot;Apples&quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4&gt;Child Aurelia based view&lt;/h4&gt;
+&lt;p&gt;The child view and view-model uses Aurelia:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;template&amp;gt;
+  Product:
+  &amp;lt;span&amp;gt;${productName}&amp;lt;/span&amp;gt;
+  &amp;lt;br /&amp;gt;
+  Price:
+  &amp;lt;span&amp;gt;${price}&amp;lt;/span&amp;gt;
+&amp;lt;/template&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;import { bindable } from &quot;aurelia-framework&quot;;
+import { inject } from &quot;aurelia-dependency-injection&quot;;
+import { KnockoutBindable } from &quot;aurelia-knockout&quot;;
+
+@inject(KnockoutBindable)
+export class ProductView {
+  @bindable
+  price;
+  productName;
+
+  knockoutBindable;
+
+  constructor(knockoutBindable) {
+    this.knockoutBindable = knockoutBindable;
+  }
+
+  activate(activationData) {
+    this.knockoutBindable.applyBindableValues(activationData, this);
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This will set the value from &lt;code&gt;activationData.price&lt;/code&gt; to &lt;code&gt;this.price&lt;/code&gt;. &lt;code&gt;this.productName&lt;/code&gt; however, is not&lt;/p&gt;
+&lt;p&gt;updated because it has no &lt;code&gt;@bindable&lt;/code&gt; decorator and the variable from &lt;code&gt;activationData&lt;/code&gt; is no Knockout&lt;/p&gt;
+&lt;p&gt;observable. To process non Knockout observables anyway you have to pass &lt;code&gt;false&lt;/code&gt; as third parameter to the&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;applyBindableValues&lt;/code&gt; function. If the outer value changed (and is an observable) the corresponding inner&lt;/p&gt;
+&lt;p&gt;variable is updated too.&lt;/p&gt;
+&lt;p&gt;Subscriptions for Knockout observables which are created from this plugin internally will be disposed automatically&lt;/p&gt;
+&lt;p&gt;if the child view is unbound.&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;The migration to a new framework is often a big task depending on your application. But that does not mean that you have to implement it all at once. This plugin offers you a possibility to ship preliminary results during the transition phase of your application.&lt;/p&gt;
+</content:encoded></item></channel></rss>
