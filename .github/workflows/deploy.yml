@@ -8,10 +8,10 @@ on:
   workflow_dispatch: {}
 
 permissions:
-  contents: write
-  pages: write
+  actions: read
+  contents: read
   id-token: write
-
+  pages: write
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -44,4 +44,3 @@ jobs:
       #     git add linkedin/
       #     git diff --cached --quiet || git commit -m "chore: mark LinkedIn posts as published"
       #     git push origin source || true
-
