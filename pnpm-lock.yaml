@@ -22,7 +22,7 @@ importers:
         version: 7.2.5(@types/node@25.5.0)(astro@5.18.1(@types/node@25.5.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@2.80.0)(stylus@0.64.0)(terser@5.46.0)(typescript@7.0.2)(yaml@2.9.0))(jiti@2.6.1)(lightningcss@1.32.0)(stylus@0.64.0)(svelte@5.57.1(@typescript-eslint/types@8.58.0))(terser@5.46.0)(typescript@7.0.2)(yaml@2.9.0)
       '@expressive-code/core':
         specifier: ^0.44.0
-        version: 0.44.1
+        version: 0.44.2
       '@expressive-code/plugin-collapsible-sections':
         specifier: ^0.41.4
         version: 0.41.7
@@ -1199,9 +1199,6 @@ packages:
 
   '@expressive-code/core@0.41.7':
     resolution: {integrity: sha512-ck92uZYZ9Wba2zxkiZLsZGi9N54pMSAVdrI9uW3Oo9AtLglD5RmrdTwbYPCT2S/jC36JGB2i+pnQtBm/Ib2+dg==}
-
-  '@expressive-code/core@0.44.1':
-    resolution: {integrity: sha512-3dDo9N8D7hYrLNNMMWFovg3+aDUtnQm7c7z0GZc1c0LEFVBc0Q6lKG+tVT28gDadOvsgOANfCn35fgpe97Pmgg==}
 
   '@expressive-code/core@0.44.2':
     resolution: {integrity: sha512-Yw5KonQCD1HoOO2P89y4wifqS9qrJcGVY0LkVMUsVZjhi++bhz4WwQ37inenKFNOEVo50P7cjoVsCdaVnUbq8w==}
@@ -4362,8 +4359,8 @@ packages:
     resolution: {integrity: sha512-bIoJLOmjCO1S9XdY/DcnR5hJxvrDir1PbGChrzXG3vw0/FOliy/fA3dmdhQ441kah4gKv+TwckGzex6wNS5cnQ==}
     engines: {node: '>=4'}
 
-  postcss-selector-parser@7.1.5:
-    resolution: {integrity: sha512-KvvtD7SrlBP7dlgkBghEE3r84CABm5SmV2aNcG4oCA+qDnJ/tvKonFVvwWAyyWUEwxuNawdfEAZKP9zM3oZ2Uw==}
+  postcss-selector-parser@7.1.6:
+    resolution: {integrity: sha512-7qASPzhKF2l2KLboRZux8CCTRMdGiV08vWmyKzPz22qZ7ZjQBOeY7rNzNoCLSUiftJ7HUq0GERHmxw/t0dCdMw==}
     engines: {node: '>=4'}
 
   postcss-svgo@5.1.0:
@@ -6612,18 +6609,6 @@ snapshots:
       unist-util-visit: 5.1.0
       unist-util-visit-parents: 6.0.2
 
-  '@expressive-code/core@0.44.1':
-    dependencies:
-      '@ctrl/tinycolor': 4.2.0
-      hast-util-select: 6.0.4
-      hast-util-to-html: 9.0.5
-      hast-util-to-text: 4.0.2
-      hastscript: 9.0.1
-      postcss: 8.5.26
-      postcss-nested: 6.2.0(postcss@8.5.26)
-      unist-util-visit: 5.1.0
-      unist-util-visit-parents: 6.0.2
-
   '@expressive-code/core@0.44.2':
     dependencies:
       '@ctrl/tinycolor': 4.2.1
@@ -8076,7 +8061,7 @@ snapshots:
   css-tree@2.2.1:
     dependencies:
       mdn-data: 2.0.28
-      source-map-js: 1.2.1
+      source-map-js: 1.2.2
 
   css-tree@2.3.1:
     dependencies:
@@ -8086,7 +8071,7 @@ snapshots:
   css-tree@3.2.1:
     dependencies:
       mdn-data: 2.27.1
-      source-map-js: 1.2.1
+      source-map-js: 1.2.2
 
   css-what@6.2.2: {}
 
@@ -10046,13 +10031,13 @@ snapshots:
     dependencies:
       icss-utils: 5.1.0(postcss@8.5.28)
       postcss: 8.5.28
-      postcss-selector-parser: 7.1.5
+      postcss-selector-parser: 7.1.6
       postcss-value-parser: 4.2.0
 
   postcss-modules-scope@3.2.1(postcss@8.5.28):
     dependencies:
       postcss: 8.5.28
-      postcss-selector-parser: 7.1.5
+      postcss-selector-parser: 7.1.6
 
   postcss-modules-values@4.0.0(postcss@8.5.28):
     dependencies:
@@ -10154,7 +10139,7 @@ snapshots:
       cssesc: 3.0.0
       util-deprecate: 1.0.2
 
-  postcss-selector-parser@7.1.5:
+  postcss-selector-parser@7.1.6:
     dependencies:
       cssesc: 3.0.0
       util-deprecate: 1.0.2
