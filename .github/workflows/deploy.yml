@@ -19,7 +19,7 @@ jobs:
       - name: Checkout your repository using git
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
       - name: Install, build, and upload your site output
-        uses: withastro/action@b7d53628f8b666036b0238aadb0b984a2a489f26 # v6
+        uses: withastro/action@3eafd002e65cc31b4f0eae0bb05450d521562247 # v6
       - name: Add .nojekyll
         run: echo "" > dist/.nojekyll
 
