@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.8",
-    "@astrojs/markdown-remark": "7.2.4",
+    "@astrojs/markdown-remark": "7.3.5",
     "@astrojs/rss": "^4.0.14",
     "@astrojs/sitemap": "^3.6.0",
     "@astrojs/svelte": "9.1.2",
@@ -34,7 +34,7 @@
     "@swup/astro": "^1.7.0",
     "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.2.1",
-    "astro": "7.3.3",
+    "astro": "7.4.4",
     "astro-expressive-code": "^0.44.0",
     "astro-icon": "^1.1.5",
     "hastscript": "^9.0.1",
