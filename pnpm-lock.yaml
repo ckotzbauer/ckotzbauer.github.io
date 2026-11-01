@@ -210,7 +210,7 @@ importers:
         version: 1.2.93
       '@iconify/svelte':
         specifier: ^5.0.0
-        version: 5.2.2(svelte@5.57.1(@typescript-eslint/types@8.58.0))
+        version: 5.2.3(svelte@5.57.1(@typescript-eslint/types@8.58.0))
       '@swup/astro':
         specifier: ^1.7.0
         version: 1.8.0(rolldown@1.2.12)(supports-color@7.2.0)
@@ -1374,8 +1374,8 @@ packages:
   '@iconify-json/material-symbols@1.2.93':
     resolution: {integrity: sha512-IfbpRixmEdeBrl2Bc+RtNZGb3NcTnMiPP4WausCParQYpIdezEYYbgMggJC1cYzm1q0f77p53t5tppy9PWsrvQ==}
 
-  '@iconify/svelte@5.2.2':
-    resolution: {integrity: sha512-XMXxD3nzH7yB68C3K4sNwzrJ1TBscODR0ZqCeNf0KGuEMCTSuCo0jHNDZ0o0iRXTylO41NSz/DWam/4atLG1yw==}
+  '@iconify/svelte@5.2.3':
+    resolution: {integrity: sha512-RV08FAHSsUW3/4WJsfoMYGbNt413Eh+4thU864pmX2QGFaem2P7zTcANYwkSOnApGlpYhMXJM813tN1tfk68ug==}
     peerDependencies:
       svelte: '>5.0.0'
 
@@ -6860,7 +6860,7 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify/svelte@5.2.2(svelte@5.57.1(@typescript-eslint/types@8.58.0))':
+  '@iconify/svelte@5.2.3(svelte@5.57.1(@typescript-eslint/types@8.58.0))':
     dependencies:
       '@iconify/types': 2.0.0
       svelte: 5.57.1(@typescript-eslint/types@8.58.0)
